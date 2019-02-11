@@ -1,17 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Participate />
+    <Participants />
+    <Winners />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Participate from './components/Participate.vue'
+import Participants from './components/Participants.vue'
+import Winners from './components/Winners.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Participate,
+    Participants,
+    Winners
   }
 }
 </script>
