@@ -1,0 +1,57 @@
+<template>
+  <div class="hello">
+    <h1> {{ nrParticipants }} out of {{ nrParticipantsNeeded }} needed participants have entered this round: </h1>
+    <li v-for="p in participants" :key="p.nickname">
+    <p>
+    Name: {{ p.nickname }}
+    </p>
+    <p>
+    Message: {{ p.message }}
+    </p>
+  </li>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  name: 'Participants',
+  data () {
+    return {
+      participants: null,
+      nrParticipants: null,
+      nrParticipantsNeeded: null
+    }
+  },
+  mounted () {
+    axios
+      .get('https://win.lightning-lottery.com/info/participants')
+      .then(response => (this.participants = response.data))
+    axios
+      .get('https://win.lightning-lottery.com/info/roundInfo')
+      .then(response => (
+        this.nrParticipants = response.data.currentNumberOfParticipants,
+        this.nrParticipantsNeeded = response.data.neededNumberOfParticipants
+        ))
+  
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
