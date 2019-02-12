@@ -16,7 +16,7 @@ export default {
   components: {
     Participate,
     Participants,
-    Winners
+    Winners,
   }
 }
 </script>

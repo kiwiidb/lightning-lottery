@@ -2,27 +2,31 @@
   <div class="participate">
     <h1>{{ 'Welcome to the Lightning Lottery!' }}</h1>
     <form class="" method="post" @submit.prevent="postFirst">
-    <p>
     <input v-model="email" placeholder="e-mail (required)">
-    </p>
-    <p>
+    <br>
     <input v-model="nickname" placeholder="nickname">
-    </p>
-    <p>
+    <br>
     <textarea v-model="message" placeholder="message"></textarea>
-    </p>
-    <p>
+    <br>
+    <select v-model="operator">
+      <option disabled value="">Please select one</option>
+      <option value="amazon-germany">Amazon Europe Voucher</option>
+      <option value="amazon-usa">Amazon USA Voucher</option>
+    </select>
+    <br>
     <button type="submit" name="button">Submit</button>
-    </p>
     </form>
-    <p>
-    {{ invoice }}
-    <p/>
+    <qrcode-vue v-show="invoice != ''" id="second" :value=invoice size=250></qrcode-vue>
+    <button v-show="invoice != ''" v-clipboard:copy="invoice">Copy to clipboard</button>
+    <button v-show="invoice != ''" v-on:click="postSecond">Click here if you made the payment</button>
+    <br>
+    {{ resp }}
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import QrcodeVue from 'qrcode.vue';
 export default {
   name: 'Participate',
   data() {
@@ -32,8 +36,13 @@ export default {
       message: '',
       operator: '', 
       invoice: '', 
+      token: '', 
+      resp: '', 
       errors: []
     }
+  },
+   components: {
+    QrcodeVue
   },
   methods: {
     postFirst: function () {
@@ -43,10 +52,26 @@ export default {
                    message: this.message,
                    operator:this.operator
                    })
-        .then(response => {
-        })
         .catch(e => {
           this.invoice = e.response.data
+          this.token = e.response.headers['x-token']
+        })
+    },
+    postSecond: function () {
+      axios.post(`https://win.lightning-lottery.com/participate`,
+                  {email: this.email,
+                   nickname: this.nickname,
+                   message: this.message,
+                   operator:this.operator
+                   },
+                   {headers: {'X-Token': this.token}
+                   }
+                )
+        .then(response => {
+          this.resp = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
         })
     }
   }

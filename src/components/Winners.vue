@@ -2,12 +2,9 @@
   <div class="hello">
     <h1>{{ 'These reckless folks have already won:' }}</h1>
     <li v-for="w in winners" :key="w.nickname">
-    <p>
     Name: {{ w.nickname }}
-    </p>
-    <p>
+    <br>
     Message: {{ w.message }}
-    </p>
   </li>
   </div>
 </template>
