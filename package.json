@@ -13,7 +13,9 @@
     "v-button": "^1.2.1",
     "v-clipboard": "^2.2.1",
     "vue": "^2.5.22",
-    "vue-clipboard2": "^0.3.0"
+    "vue-clipboard2": "^0.3.0",
+    "vuedarkmode": "^0.3.22",
+    "vuetify": "^1.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",

@@ -1,10 +1,14 @@
 <template>
   <div class="hello">
     <h1> {{ nrParticipants }} out of {{ nrParticipantsNeeded }} needed participants have entered this round: </h1>
-    <li v-for="p in participants" :key="p.nickname">
+    <div v-for="p in participants" :key="p.nickname">
+    <div>
     Name: {{ p.nickname }}
+    <br/>
     Message: {{ p.message }}
-  </li>
+    </div>
+    <br/>
+  </div>
   </div>
 </template>
 

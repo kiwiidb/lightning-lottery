@@ -1,6 +1,7 @@
 <template>
   <div class="participate">
     <h1>{{ 'Welcome to the Lightning Lottery!' }}</h1>
+    <p>You can win various products from <a href="https://bitrefill.com">Bitrefill</a>.</p>
     <form class="" method="post" @submit.prevent="postFirst">
     <input v-model="email" placeholder="e-mail (required)">
     <br>
@@ -9,7 +10,7 @@
     <textarea v-model="message" placeholder="message"></textarea>
     <br>
     <select v-model="operator">
-      <option disabled value="">Please select one</option>
+      <option disabled value="">Pick a Bitrefill product</option>
       <option value="amazon-germany">Amazon Europe Voucher</option>
       <option value="amazon-usa">Amazon USA Voucher</option>
     </select>
@@ -20,7 +21,6 @@
     <button v-show="invoice != ''" v-clipboard:copy="invoice">Copy to clipboard</button>
     <button v-show="invoice != ''" v-on:click="postSecond">Click here if you made the payment</button>
     <br>
-    {{ resp }}
   </div>
 </template>
 
@@ -69,6 +69,7 @@ export default {
                 )
         .then(response => {
           this.resp = response.data
+          window.location.reload()
         })
         .catch(e => {
           this.errors.push(e)

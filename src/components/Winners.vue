@@ -1,11 +1,14 @@
 <template>
   <div class="hello">
-    <h1>{{ 'These reckless folks have already won:' }}</h1>
-    <li v-for="w in winners" :key="w.nickname">
-    Name: {{ w.nickname }}
-    <br>
-    Message: {{ w.message }}
-  </li>
+    <h1>{{ 'These are the reckless winners up until now:' }}</h1>
+    <div v-for="p in winners" :key="p.nickname">
+    <div>
+    Name: {{ p.nickname }}
+    <br/>
+    Message: {{ p.message }}
+    </div>
+    <br/>
+  </div>
   </div>
 </template>
 
