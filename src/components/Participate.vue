@@ -11,8 +11,7 @@
     <br>
     <select v-model="operator">
       <option disabled value="">Pick a Bitrefill product</option>
-      <option value="amazon-germany">Amazon Europe Voucher</option>
-      <option value="amazon-usa">Amazon USA Voucher</option>
+      //<option v-for="p in providers" :key=p value=p > {{ p }}</option>
     </select>
     <br>
     <button type="submit" name="button">Submit</button>
@@ -20,6 +19,7 @@
     <qrcode-vue v-show="invoice != ''" id="second" :value=invoice size=250></qrcode-vue>
     <button v-show="invoice != ''" v-clipboard:copy="invoice">Copy to clipboard</button>
     <button v-show="invoice != ''" v-on:click="postSecond">Click here if you made the payment</button>
+    <a v-show="invoice != ''" v-bind:href="'lightning:'+ invoice">Open in wallet</a>
     <br>
   </div>
 </template>
@@ -38,10 +38,16 @@ export default {
       invoice: '', 
       token: '', 
       resp: '', 
+      providers: [],
       errors: []
     }
   },
-   components: {
+  mounted () {
+    axios
+      .get('https://win.lightning-lottery.com/info/providers')
+      .then(response => (this.providers = response.data))
+  },
+  components: {
     QrcodeVue
   },
   methods: {
