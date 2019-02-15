@@ -11,7 +11,7 @@
     <br>
     <select v-model="operator">
       <option disabled value="">Pick a Bitrefill product</option>
-      //<option v-for="p in providers" :key=p value=p > {{ p }}</option>
+      <option v-for="p in providers">{{ p }}</option>
     </select>
     <br>
     <button type="submit" name="button">Submit</button>
