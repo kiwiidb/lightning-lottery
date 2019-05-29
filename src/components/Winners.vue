@@ -1,11 +1,9 @@
 <template>
   <div class="hello">
-    <h1>{{ 'These are the reckless winners up until now:' }}</h1>
-    <div v-for="p in winners" :key="p.nickname">
+    <h1>{{ 'These are the messages from the reckless winners up until now:' }}</h1>
+    <div v-for="(p, index) in winners" :key="p.nickname">
     <div>
-    Name: {{ p.nickname }}
-    <br/>
-    Message: {{ p.message }}
+    {{index + 1}}.  {{ p.message }}
     </div>
     <br/>
   </div>

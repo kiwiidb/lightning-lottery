@@ -8,9 +8,8 @@
     <form class="" method="post" @submit.prevent="postFirst">
     <input v-model="email" placeholder="e-mail (required)">
     <br>
-    <input v-model="nickname" placeholder="nickname">
     <br>
-    <textarea v-model="message" placeholder="message"></textarea>
+    <textarea v-model="message" placeholder="Trollbox"></textarea>
     <br>
     <select v-model="operator">
       <option disabled value="">Pick a Bitrefill product</option>
