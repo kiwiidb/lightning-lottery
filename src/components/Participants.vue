@@ -20,10 +20,15 @@ export default {
     return {
       participants: null,
       nrParticipants: null,
+      polling: null,
       nrParticipantsNeeded: null
     }
   },
-  mounted () {
+  mounted() {
+    this.getInfo()
+  },
+  methods: {
+    getInfo() {
     axios
       .get('https://win.lightning-lottery.com/info/participants')
       .then(response => (this.participants = response.data))
@@ -33,8 +38,19 @@ export default {
         this.nrParticipants = response.data.currentNumberOfParticipants,
         this.nrParticipantsNeeded = response.data.neededNumberOfParticipants
         ))
-  
-  }
+    },
+    pollData () {
+		this.polling = setInterval(() => {
+			this.getInfo()
+		}, 2000)
+	}
+  },
+  beforeDestroy () {
+	clearInterval(this.polling)
+},
+created () {
+	this.pollData()
+}
 }
 </script>
 

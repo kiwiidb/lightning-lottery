@@ -16,14 +16,31 @@ export default {
   name: 'Winners',
   data () {
     return {
-      winners: null
+      winners: null,
+      polling: null
     }
   },
-  mounted () {
+mounted() {
+  this.getInfo()
+},
+methods: {
+    getInfo() {
     axios
       .get('https://win.lightning-lottery.com/info/winners')
       .then(response => (this.winners = response.data))
-  }
+    },
+    pollData () {
+		this.polling = setInterval(() => {
+			this.getInfo()
+		}, 2000)
+	}
+  },
+  beforeDestroy () {
+	clearInterval(this.polling)
+},
+created () {
+	this.pollData()
+}
 }
 </script>
 
