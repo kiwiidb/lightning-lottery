@@ -9,7 +9,7 @@
     <input v-model="email" placeholder="e-mail (required)">
     <br>
     <br>
-    <textarea v-model="message" placeholder="Trollbox"></textarea>
+    <textarea v-model="message" placeholder="Trollbox (optional)"></textarea>
     <br>
     <select v-model="operator">
       <option disabled value="">Pick a Bitrefill product</option>
@@ -55,7 +55,6 @@ export default {
     postFirst: function () {
       axios.post(`https://win.lightning-lottery.com/participate`,
                   {email: this.email,
-                   nickname: this.nickname,
                    message: this.message,
                    operator:this.operator
                    })
@@ -66,7 +65,7 @@ export default {
       const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
         }
-      sleep(500).then(() => {
+      sleep(5000).then(() => {
       //do stuff
       this.checkInvoicePaid()
     })
