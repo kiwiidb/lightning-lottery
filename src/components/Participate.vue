@@ -2,7 +2,7 @@
   <div class="participate">
     <h1>{{ 'Welcome to the Lightning Lottery!' }}</h1>
     <p>You can win various products from <a href="https://bitrefill.com">Bitrefill</a>.<br>
-    Participating only costs 25,000 ⚡. When the sufficient amount of participants for a round is reached,<br>
+    Participating only costs 15,000 ⚡. When the sufficient amount of participants for a round is reached,<br>
     a randomly selected winner gets an e-mail from Bitrefill with a voucher code for the chosen product.<br>
     The value of the vouchers is around $ 25, depending on the provider.</p>
     <form class="" method="post" @submit.prevent="postFirst">

@@ -3,11 +3,13 @@
     <Participate />
     <Participants />
     <Winners />
+    <div id="wrapper">
     <div class="footer">
-      <a style="margin-right: 1em;" href="https://lightninghackday.fulmo.org">Made as a project for the LN Hackday</a>  
-      <a style="margin-right: 1em;" href="https://twitter.com/kiwiidb">My Twitter</a>  
-      <a style="margin-right: 1em;" href="https://github.com/kiwiidb">My Github</a>
-      <a style="margin-right: 1em;" href="https://kiwiidb.github.io">My Homepage</a>
+        <a style="margin-right: 1em;" href="https://lightninghackday.fulmo.org">Made as a project for the LN Hackday</a>  
+        <a style="margin-right: 1em;" href="https://twitter.com/kiwiidb">My Twitter</a>  
+        <a style="margin-right: 1em;" href="https://github.com/kiwiidb">My Github</a>
+        <a style="margin-right: 1em;" href="https://kiwiidb.github.io">My Homepage</a>
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +43,11 @@ export default {
   left: 0;
   padding: 1rem;
   background-color: #efefef;
+  margin-bottom: 0px;
   text-align: center;
+}
+#wrapper {
+    height: 400px;
+    position: relative;
 }
 </style>
