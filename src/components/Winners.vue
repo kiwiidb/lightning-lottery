@@ -32,7 +32,7 @@ methods: {
     pollData () {
 		this.polling = setInterval(() => {
 			this.getInfo()
-		}, 2000)
+		}, 4000)
 	}
   },
   beforeDestroy () {

@@ -3,8 +3,6 @@
     <h1> {{ nrParticipants }} out of {{ nrParticipantsNeeded }} needed participants have entered this round: </h1>
     <div v-for="p in participants" :key="p.nickname">
     <div>
-    Name: {{ p.nickname }}
-    <br/>
     Message: {{ p.message }}
     </div>
     <br/>
@@ -42,7 +40,7 @@ export default {
     pollData () {
 		this.polling = setInterval(() => {
 			this.getInfo()
-		}, 2000)
+		}, 4000)
 	}
   },
   beforeDestroy () {
