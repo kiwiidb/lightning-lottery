@@ -18,6 +18,11 @@
     <br>
     <button type="submit" name="button">Submit</button>
     </form>
+    <div v-if="reqInProgress == true" >
+    <b-spinner></b-spinner>
+    <br>
+    Waiting for payment..
+    </div>
     <qrcode-vue v-show="invoice != ''" id="second" :value=invoice size=250></qrcode-vue>
     <button v-show="invoice != ''" v-clipboard:copy="invoice">Copy to clipboard</button>
     <a v-show="invoice != ''" v-bind:href="'lightning:'+ invoice" class="button">Open in wallet</a>
@@ -40,7 +45,8 @@ export default {
       token: '', 
       resp: '', 
       providers: [],
-      errors: []
+      errors: [],
+      reqInProgress: false
     }
   },
   mounted () {
@@ -65,6 +71,7 @@ export default {
       const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
         }
+      this.reqInProgress = true;
       sleep(5000).then(() => {
       //do stuff
       this.checkInvoicePaid()
@@ -88,6 +95,7 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
+      this.reqInProgress = false;
     },
     checkInvoicePaid: function () {
       var invToken = this.token.split(".", 2)[0]
