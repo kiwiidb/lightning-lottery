@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ 'These are the messages from the reckless winners up until now:' }}</h1>
-    <div v-for="(p, index) in winners" :key="p.nickname">
+    <div v-for="p in winners" :key="p.nickname">
     <div>
-    {{index + 1}}.  {{ p.message }}
+    {{"Name: "}}  {{ p.nickname }}
+    {{"Message: "}}  {{ p.message }}
     </div>
     <br/>
   </div>

@@ -1,20 +1,19 @@
 <template>
   <div class="participate">
     <h1>{{ 'Welcome to the Lightning Lottery!' }}</h1>
-    <p>You can win various products from <a href="https://bitrefill.com">Bitrefill</a>.<br>
-    Participating only costs 15,000 ⚡. When the sufficient amount of participants for a round is reached,<br>
-    a randomly selected winner gets an e-mail from Bitrefill with a voucher code for the chosen product.<br>
-    The value of the vouchers is around $ 25, depending on the provider.</p>
+    <p>This lottery is being organised in for the <a href= "https://lightninghackday.fulmo.org"> Lightning Hackday Munich</a> in cooperation with <a href="https://www.nodl.it/">Nodl</a>  
+    <br>
+    You can win a Nodl node!
+    <br>
+    The revenue fully goes to supporting the organiser Fulmo. Participating only costs ? ⚡.
+    <br>
+    When you paid the invoice, you will get a unique code, do not lose this code if you want to claim your prize!
+    </p>
     <form class="" method="post" @submit.prevent="postFirst">
-    <input v-model="email" placeholder="e-mail (required)">
+    <input v-model="nickname" placeholder="nickname (required)">
     <br>
     <br>
     <textarea v-model="message" placeholder="Trollbox (optional)"></textarea>
-    <br>
-    <select v-model="operator">
-      <option disabled value="">Pick a Bitrefill product</option>
-      <option v-for="p in providers" v-bind:key="p">{{ p }}</option>
-    </select>
     <br>
     <button type="submit" name="button">Submit</button>
     </form>
@@ -27,6 +26,12 @@
     <button v-show="invoice != ''" v-clipboard:copy="invoice">Copy to clipboard</button>
     <a v-show="invoice != ''" v-bind:href="'lightning:'+ invoice" class="button">Open in wallet</a>
     <br>
+    <div v-if="reqInProgress == true" >
+    Your unique code is: 
+    {{uid}}
+    <br>
+    Make a screenshot or copy this value if you want to claim your prize!
+    </div>
   </div>
 </template>
 
@@ -37,15 +42,14 @@ export default {
   name: 'Participate',
   data() {
     return {
-      email: '',
       nickname: '',
       message: '',
-      operator: '', 
       invoice: '', 
       token: '', 
       resp: '', 
       providers: [],
       errors: [],
+      uid: '',
       reqInProgress: false
     }
   },
@@ -60,9 +64,8 @@ export default {
   methods: {
     postFirst: function () {
       axios.post(`https://win.lightning-lottery.com/participate`,
-                  {email: this.email,
+                  {nickname: this.nickname,
                    message: this.message,
-                   operator:this.operator
                    })
         .catch(e => {
           this.invoice = e.response.data
@@ -79,22 +82,21 @@ export default {
     },
     postSecond: function () {
       axios.post(`https://win.lightning-lottery.com/participate`,
-                  {email: this.email,
+                  {
                    nickname: this.nickname,
                    message: this.message,
-                   operator:this.operator
                    },
                    {headers: {'X-Token': this.token}
                    }
                 )
         .then(response => {
-          this.resp = response.data
-          window.location.reload()
+          this.uid = response.data['uid']
           this.simpleNotification()
         })
         .catch(e => {
           this.errors.push(e)
         })
+      this.invoice = '';
       this.reqInProgress = false;
     },
     checkInvoicePaid: function () {
